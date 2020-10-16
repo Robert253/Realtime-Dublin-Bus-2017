@@ -1,0 +1,87 @@
+<!--Robert Foster
+    Second year NCIRL Dublin bus API project
+    This is the 2017 dublin bus API for realtime information on the bus arrival-->
+
+<html lang="en">
+ <head>
+  	<link href="styles.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="jquery-3.2.1.min.js"></script>
+  </head>
+<body>
+
+<header>
+  <h1>Dublin Bus</h1>
+	<div id="nav">
+			<ul>
+			    <li><a href="Api.html" tabindex="1">Refresh</a></li>
+		      </ul>
+			</div>
+  </div>
+
+</header>
+<div id="main">
+ <button type="button" onclick="loadXMLDoc()">Change Content</button>
+
+<table border=1 id="demo">
+
+
+</table>
+
+<script src = "connectir.js"></script>
+ <div id = APICSS>
+<script>
+function loadXMLDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      // document.getElementById("demo").innerHTML =
+      // this.responseText;
+      myFunction(this),myFunction(z);
+
+    }
+
+
+  };
+  xhttp.open("GET", "https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid=7602&format=xml",true);
+
+
+  xhttp.send();
+
+
+ function myFunction(xml) {
+   var x, i, xmlDoc, txt;
+   xmlDoc = xml.responseXML;
+   txt = "";
+   a = xmlDoc.getElementsByTagName("route");
+   b = xmlDoc.getElementsByTagName("origin");
+   x = xmlDoc.getElementsByTagName("destination");
+   y = xmlDoc.getElementsByTagName("duetime");
+ txt+="<th>Bus</th><th>Depart</th><th>Direction</th><th>Last Stop</th><th>Time</th>";
+   for (i = 0; i< x.length; i++) {
+     txt += "<tr><td>"+a[i].childNodes[0].nodeValue + "</td><td>  "+ b[i].childNodes[0].nodeValue +"</td><td>" + " To"+"</td><td>"+ x[i].childNodes[0].nodeValue + "</td><td>   "+ y[i].childNodes[0].nodeValue +"  Minutes" + "</td></tr>";
+   }
+
+
+
+
+  document.getElementById("demo").innerHTML = txt;
+}
+
+}
+</script>
+</div>
+
+
+  <footer class="clearFloat">
+    <div id="FooterLeft">Web Authoring</div>
+    <div id="FooterMiddle">Dublin Bus</div>
+   <div id="footerRight"><a href"sitemap.html">site map</a></div>
+
+  </footer>
+</div>
+
+</body>
+</html>
